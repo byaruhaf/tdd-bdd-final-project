@@ -17,9 +17,10 @@
 """
 Test Factory to make fake objects for testing
 """
+
 import factory
 from factory.fuzzy import FuzzyChoice, FuzzyDecimal
-from service.models import Product, Category
+from service.models import Category, Product
 
 
 class ProductFactory(factory.Factory):
@@ -31,7 +32,6 @@ class ProductFactory(factory.Factory):
         model = Product
 
     id = factory.Sequence(lambda n: n)
-   ## Add code to create Fake Products 
     name = FuzzyChoice(
         choices=[
             "Hat",
@@ -44,7 +44,7 @@ class ProductFactory(factory.Factory):
             "Ford",
             "Chevy",
             "Hammer",
-            "Wrench"
+            "Wrench",
         ]
     )
     description = factory.Faker("text")
