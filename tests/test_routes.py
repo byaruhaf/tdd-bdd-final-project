@@ -300,13 +300,12 @@ class TestProductRoutes(TestCase):
             self.assertEqual(Decimal(product["price"]), test_price)
 
     def test_deserialize_with_type_error(self):
-            """It should not deserialize a Product with bad data"""
-            product = Product()
-            with self.assertRaises(DataValidationError) as context:
-                product.deserialize(None)
-            self.assertIn("bad or no data", str(context.exception))
+        """It should not deserialize a Product with bad data"""
+        product = Product()
+        with self.assertRaises(DataValidationError) as context:
+            product.deserialize(None)
+        self.assertIn("bad or no data", str(context.exception))
 
-    
     ######################################################################
     # Utility functions
     ######################################################################
