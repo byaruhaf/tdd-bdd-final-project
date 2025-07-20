@@ -31,7 +31,7 @@ from unittest import TestCase
 from urllib.parse import quote_plus
 from service import app
 from service.common import status
-from service.models import db, init_db, Product
+from service.models import db, init_db, Product, DataValidationError
 from tests.factories import ProductFactory
 
 # Disable all but critical errors during normal test run
@@ -299,6 +299,14 @@ class TestProductRoutes(TestCase):
         for product in data:
             self.assertEqual(Decimal(product["price"]), test_price)
 
+    def test_deserialize_with_type_error(self):
+            """It should not deserialize a Product with bad data"""
+            product = Product()
+            with self.assertRaises(DataValidationError) as context:
+                product.deserialize(None)
+            self.assertIn("bad or no data", str(context.exception))
+
+    
     ######################################################################
     # Utility functions
     ######################################################################
